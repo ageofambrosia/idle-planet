@@ -5,6 +5,7 @@ var currentScene = null
 var max_workers = 1
 var things = ""
 var deps = ""
+var log_str = Array()
 
 func _ready():
 	things = get_node("/root/global").getThings()
@@ -50,7 +51,7 @@ func alterRate(thing_name, amount):
 func setRates():
 	for item in things:
 		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'resource':
-			get_node("/root/global").alterRate(item['name'], -get_node("/root/global").getRate(item['name']))
+			get_node("/root/global").alterRate(item['name'], -get_node("/root/global").getThingProperty(item['name'], 'rate'))
 		
 	for item in things:
 		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'building' or \
@@ -61,31 +62,29 @@ func setRates():
 				for prod in item['production']:
 					get_node("/root/global").alterRate(prod['item'], prod['value'] * get_node("/root/global").getThingCount(item['name']))
 
-func getRate(thing_name):
-	for item in things:
-		if item["name"] == thing_name.to_lower():
-			return item['rate']
-
 func killEverybody():
 	for i in range(0, things.size()):
 		if things[i]["type"] == 'worker':
 			things[i]["count"] = 0
+	
+	get_node("/root/global").writeToLog(str('You ran out of water, errrrybody diiiieeeeeed!'))
 
-func incrementThings(delta):
+func setAllWorking():
 	for item in things:
 		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'building' or \
 			get_node("/root/global").getThingProperty(item['name'], 'type') == 'worker':
-			if get_node("/root/global").getThingCount(item['name']) > 0:
-				for con in item['consumption']:
-					if get_node("/root/global").getThingCount(con['item']) <= 0:
-						get_node("/root/global").setInventory(con['item'], 0)
-						get_node("/root/global").setWorking(item['name'], 0)
-					else:
-						get_node("/root/global").subtractInventory(con['item'], con['value'] * get_node("/root/global").getThingCount(item['name']) * delta)
-						get_node("/root/global").setWorking(item['name'], 1)
-				if get_node("/root/global").getThingProperty(item['name'], 'working') == 1:
-					for prod in item['production']:
-						get_node("/root/global").addInventory(prod['item'], prod['value'] * get_node("/root/global").getThingCount(item['name']) * delta)
+			for con in item['consumption']:
+				if get_node("/root/global").getThingCount(con['item']) <= 0:
+					get_node("/root/global").setWorking(item['name'], 0)
+				else:
+					get_node("/root/global").setWorking(item['name'], 1)
+
+func incrementThings(delta):
+	for item in things:
+		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'resource':
+			if get_node("/root/global").getThingCount(item['name']) < 0:
+				get_node("/root/global").setInventory(item['name'], 0)
+			get_node("/root/global").addInventory(item['name'], get_node("/root/global").getThingProperty(item['name'], 'rate') * delta)
 
 func getThingProperty(thing_name, property):
 	for item in things:
@@ -175,3 +174,17 @@ func thing_cost_multiplier(thing_name):
 		if things[i]['name'] == thing_name.to_lower():
 			for j in range(0, things[i]['cost'].size()):
 				things[i]['cost'][j]['value'] *= Globals.get("COST_MULTIPLIER")
+
+func writeToLog(text):
+	var timeDict = OS.get_time();
+	var hour = timeDict.hour;
+	var minute = timeDict.minute;
+	var second = timeDict.second;
+	log_str.push_back(str(hour, ":", minute, ":", second, " - ", text))
+
+func getLog():
+	var text = ""
+	for i in range(0, min(15,log_str.size())):
+		text = str(text, "\n", log_str[log_str.size() - i - 1])
+	
+	return text

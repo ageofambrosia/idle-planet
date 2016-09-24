@@ -6,6 +6,7 @@ func _ready():
 func _pressed():
 	var this_thing_name = str(get_node("details").get_parent().get_name())
 	get_node("/root/global").addInventory(this_thing_name, 1)
+	get_node("/root/global").writeToLog(str('Built a ', this_thing_name, '!'))
 	if this_thing_name == "Shelter":
 		get_node("/root/global").set_max_workers(get_node("/root/global").get_max_workers() + Globals.get("WORKERS_PER_SHELTER"))
 	
@@ -28,12 +29,17 @@ func _process(delta):
 	
 	var cost_str = ""
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'cost'):
-		cost_str = str(cost_str, item['item'].capitalize(), ": ", round(item['value']*10)/10, "\n")
-	
-	cost_str = str(cost_str, "\n")
-	for item in get_node("/root/global").getThingProperty(this_thing_name, 'production'):
-		cost_str = str(cost_str, item['item'].capitalize(), ": +", round(item['value']*100)/100, " / sec\n")
-	
-	for item in get_node("/root/global").getThingProperty(this_thing_name, 'consumption'):
-		cost_str = str(cost_str, item['item'].capitalize(), ": -", round(item['value']*100)/100, " / sec\n")
+		cost_str = str(cost_str, item['item'].capitalize(), ": ", round(item['value']*100)/100, "\n")
 	get_node("details").set_text(str(this_thing_name, "\n\n", cost_str))
+	
+	var prod_str = ""
+	for item in get_node("/root/global").getThingProperty(this_thing_name, 'production'):
+		prod_str = str(prod_str, item['item'].capitalize(), ": +", round(item['value']*100)/100, " / sec\n")
+	get_node("production").set_text(str(prod_str))
+	get_node("production").set_pos(get_node("details").get_pos()+Vector2(0,get_node("details").get_size()[1]))
+	
+	var cons_str = ""
+	for item in get_node("/root/global").getThingProperty(this_thing_name, 'consumption'):
+		cons_str = str(cons_str, item['item'].capitalize(), ": -", round(item['value']*100)/100, " / sec\n")
+	get_node("consumption").set_text(str(cons_str))
+	get_node("consumption").set_pos(get_node("production").get_pos()+Vector2(0,get_node("production").get_size()[1]))

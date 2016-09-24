@@ -116,6 +116,34 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="production" type="Label" parent="Gatherer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 99.0
+margin/bottom = 84.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="consumption" type="Label" parent="Gatherer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 110.0
+margin/right = 99.0
+margin/bottom = 124.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Woodcutter" type="TextureButton" parent="."]
 
 focus/ignore_mouse = false
@@ -148,6 +176,34 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="production" type="Label" parent="Woodcutter"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 99.0
+margin/bottom = 84.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="consumption" type="Label" parent="Woodcutter"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 110.0
+margin/right = 99.0
+margin/bottom = 124.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Button" type="Button" parent="."]
 
 focus/ignore_mouse = false
@@ -176,6 +232,38 @@ margin/top = 40.0
 margin/right = 129.0
 margin/bottom = 54.0
 text = "Construction Site"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Button1" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 510.0
+margin/top = 1170.0
+margin/right = 710.0
+margin/bottom = 1270.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+script/script = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="Button1"]
+
+rect/scale = Vector2( 1.5, 1.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 80.0
+margin/top = 40.0
+margin/right = 107.0
+margin/bottom = 54.0
+text = "Log"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

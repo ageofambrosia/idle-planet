@@ -1,19 +1,25 @@
 
 extends Control
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
+var accum = 0
 
 func _ready():
 	setVisibilities()
 	get_node("Resources/Label").set_text(get_node("Resources").get_name())
 	get_node("Buildings/Label").set_text(get_node("Buildings").get_name())
 	get_node("Workers/Label").set_text(get_node("Workers").get_name())
+	
+	var children = get_children()
+	for child in children:
+		if child.has_node('consumption'):
+			child.get_node('consumption').add_color_override("font_color", Color(1,0,0))
+		if child.has_node('production'):
+			child.get_node('production').add_color_override("font_color", Color(0,1,0))
 	set_process(true)
 
 func _process(delta):
 	
+	accum += delta
 	get_node("/root/global").setVisibilityAllThings()
 	setVisibilities()
 	var children = get_children()
@@ -22,6 +28,10 @@ func _process(delta):
 			child.get_node('details').set_text(str("Get ", child.get_name()))
 	
 	get_node("workers_label").set_text(str("Workers: ", get_node("/root/global").get_num_workers(), " / ", get_node("/root/global").get_max_workers()))
+	if accum > 1:
+		accum = 0
+		get_node("/root/global").setAllWorking()
+	
 	get_node("/root/global").incrementThings(delta)
 	get_node("/root/global").setRates()
 	
@@ -33,7 +43,7 @@ func _process(delta):
 	for item in things:
 		if item["type"] == "resource":
 			resource_str = str(resource_str, item["name"], ": ", "%2.1f" % get_node("/root/global").getThingCount(item["name"]), \
-								"    (", "%+2.1f" % get_node("/root/global").getRate(item["name"]), " / sec)", "\n")
+								"    (", "%+2.2f" % get_node("/root/global").getThingProperty(item["name"],'rate'), " / sec)", "\n")
 		if item["type"] == "building":
 			building_str = str(building_str, item["name"], ": ", get_node("/root/global").getThingCount(item["name"]), "\n")
 		if item["type"] == "worker":
@@ -47,6 +57,9 @@ func _process(delta):
 	if get_node("/root/global").getThingCount('water') == 0:
 		# KILL ERRYBODY
 		get_node("/root/global").killEverybody()
+	
+	if has_node("Log"):
+		get_node("Log/log").set_text(get_node("/root/global").getLog())
 	
 func setVisibilities():
 	var children = get_children()

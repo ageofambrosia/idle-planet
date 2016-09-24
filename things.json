@@ -57,7 +57,7 @@
   {
     "name": "water",
     "type": "resource",
-    "count": 100,
+    "count": 10,
     "rate": 0,
     "cost":
     [
