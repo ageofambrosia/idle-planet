@@ -1,0 +1,252 @@
+[
+  {
+    "name": "you",
+    "type": "worker",
+    "count": 1,
+    "rate": 0,
+    "working": 1,
+    "cost":
+    [
+    ],
+    "production":
+    [
+      {
+        "item": "waste",
+        "value": 0.01},
+    ],
+    "consumption":
+    [
+      {
+        "item": "water",
+        "value": 0.05},
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "rocks",
+    "type": "resource",
+    "count": 0,
+    "rate": 0,
+    "cost":
+    [
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 1
+  },
+  {
+    "name": "wood",
+    "type": "resource",
+    "count": 0,
+    "rate": 0,
+    "cost":
+    [
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "water",
+    "type": "resource",
+    "count": 100,
+    "rate": 0,
+    "cost":
+    [
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "potatoes",
+    "type": "resource",
+    "count": 0,
+    "rate": 0,
+    "cost":
+    [
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "waste",
+    "type": "resource",
+    "count": 0,
+    "rate": 0,
+    "cost":
+    [
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "shelter",
+    "type": "building",
+    "count": 0,
+    "working": 1,
+    "cost":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+      {
+        "item": "wood",
+        "value": 5}
+    ],
+    "production":
+    [
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "atmospheric_water_generator",
+    "type": "building",
+    "count": 0,
+    "working": 1,
+    "cost":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+      {
+        "item": "wood",
+        "value": 10}
+    ],
+    "production":
+    [
+      {
+        "item": "water",
+        "value": 0.2},
+    ],
+    "consumption":
+    [
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "greenhouse",
+    "type": "building",
+    "count": 0,
+    "rate": 0,
+    "working": 1,
+    "cost":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+      {
+        "item": "wood",
+        "value": 10}
+    ],
+    "production":
+    [
+      {
+        "item": "potatoes",
+        "value": 0.2},
+    ],
+    "consumption":
+    [
+      {
+        "item": "water",
+        "value": 0.1},
+      {
+        "item": "waste",
+        "value": 0.01}
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "gatherer",
+    "type": "worker",
+    "count": 0,
+    "working": 1,
+    "cost":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+      {
+        "item": "wood",
+        "value": 10}
+    ],
+    "production":
+    [
+      {
+        "item": "rocks",
+        "value": 0.2},
+      {
+        "item": "waste",
+        "value": 0.01}
+    ],
+    "consumption":
+    [
+      {
+        "item": "potatoes",
+        "value": 0.05},
+      {
+        "item": "water",
+        "value": 0.05}
+    ],
+    "is_visible": 0
+  },
+  {
+    "name": "woodcutter",
+    "type": "worker",
+    "count": 0,
+    "working": 1,
+    "cost":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+      {
+        "item": "wood",
+        "value": 10}
+    ],
+    "production":
+    [
+      {
+        "item": "wood",
+        "value": 0.2},
+      {
+        "item": "waste",
+        "value": 0.01}
+    ],
+    "consumption":
+    [
+      {
+        "item": "potatoes",
+        "value": 0.05},
+      {
+        "item": "water",
+        "value": 0.05}
+    ],
+    "is_visible": 0
+  }
+]

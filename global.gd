@@ -1,0 +1,177 @@
+extends Node
+
+#The currently active scene
+var currentScene = null
+var max_workers = 1
+var things = ""
+var deps = ""
+
+func _ready():
+	things = get_node("/root/global").getThings()
+	deps = get_node("/root/global").getDependencies()
+	
+	get_node("/root/global").setVisibilityAllThings()
+	#On load set the current scene to the last scene available
+	currentScene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
+	
+	Globals.set("WORKERS_PER_SHELTER", 2)
+	Globals.set("COST_MULTIPLIER", 1.15)
+   
+# create a function to switch between scenes 
+func setScene(scene):
+   #clean up the current scene
+   currentScene.queue_free()
+   #load the file passed in as the param "scene"
+   var s = ResourceLoader.load(scene)
+   #create an instance of our scene
+   currentScene = s.instance()
+   # add scene to root
+   get_tree().get_root().add_child(currentScene)
+   
+func setVisibilityAllThings():
+	for item in deps:
+		var this_thing_name = item['name']
+		var this_thing_deps = item['dependencies']
+		var thing_is_visible = false
+		for dep in this_thing_deps:
+			if get_node("/root/global").getThingCount(dep["item"]) >= dep['value']:
+				thing_is_visible = true
+			else:
+				thing_is_visible = false
+			
+		if thing_is_visible:
+			get_node("/root/global").setThingAvailable(this_thing_name)
+
+func alterRate(thing_name, amount):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["rate"] += amount
+
+func setRates():
+	for item in things:
+		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'resource':
+			get_node("/root/global").alterRate(item['name'], -get_node("/root/global").getRate(item['name']))
+		
+	for item in things:
+		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'building' or \
+			get_node("/root/global").getThingProperty(item['name'], 'type') == 'worker':
+			if get_node("/root/global").getThingCount(item['name']) > 0 and get_node("/root/global").getThingProperty(item['name'], 'working') == 1:
+				for con in item['consumption']:
+					get_node("/root/global").alterRate(con['item'], -(con['value'] * get_node("/root/global").getThingCount(item['name'])))
+				for prod in item['production']:
+					get_node("/root/global").alterRate(prod['item'], prod['value'] * get_node("/root/global").getThingCount(item['name']))
+
+func getRate(thing_name):
+	for item in things:
+		if item["name"] == thing_name.to_lower():
+			return item['rate']
+
+func killEverybody():
+	for i in range(0, things.size()):
+		if things[i]["type"] == 'worker':
+			things[i]["count"] = 0
+
+func incrementThings(delta):
+	for item in things:
+		if get_node("/root/global").getThingProperty(item['name'], 'type') == 'building' or \
+			get_node("/root/global").getThingProperty(item['name'], 'type') == 'worker':
+			if get_node("/root/global").getThingCount(item['name']) > 0:
+				for con in item['consumption']:
+					if get_node("/root/global").getThingCount(con['item']) <= 0:
+						get_node("/root/global").setInventory(con['item'], 0)
+						get_node("/root/global").setWorking(item['name'], 0)
+					else:
+						get_node("/root/global").subtractInventory(con['item'], con['value'] * get_node("/root/global").getThingCount(item['name']) * delta)
+						get_node("/root/global").setWorking(item['name'], 1)
+				if get_node("/root/global").getThingProperty(item['name'], 'working') == 1:
+					for prod in item['production']:
+						get_node("/root/global").addInventory(prod['item'], prod['value'] * get_node("/root/global").getThingCount(item['name']) * delta)
+
+func getThingProperty(thing_name, property):
+	for item in things:
+		if item["name"] == thing_name.to_lower():
+			return item[property]
+	
+	return null
+
+func getThingName(idx):
+	return things[idx]['name']
+
+func getThingCount(thing_name):
+	for item in things:
+		if item["name"] == thing_name.to_lower():
+			return round(item['count']*10)/10
+	
+	return 0
+
+func getThingAvailable(thing_name):
+	for item in things:
+		if item["name"] == thing_name.to_lower():
+			return item['is_visible']
+	
+	return 1
+	
+func setThingAvailable(thing_name):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["is_visible"] = 1
+
+
+func addInventory(thing_name, amount):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["count"] += amount
+
+func subtractInventory(thing_name, amount):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["count"] -= amount
+
+func setInventory(thing_name, amount):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["count"] = amount
+
+func setWorking(thing_name, value):
+	for i in range(0, things.size()):
+		if things[i]["name"] == thing_name.to_lower():
+			things[i]["working"] = value
+
+func getNumberThingTypes():
+	return things.size()
+
+func getThings():
+	var file = File.new()
+	file.open("res://things.json", file.READ)
+	var content =  str('{"array":', file.get_as_text(), '}')
+	var things = Dictionary()
+	things.parse_json(content)
+	return(things["array"])
+
+func getDependencies():
+	var file = File.new()
+	file.open("res://dependencies.json", file.READ)
+	var content =  str('{"array":', file.get_as_text(), '}')
+	var deps = Dictionary()
+	deps.parse_json(content)
+	return(deps["array"])
+	
+func get_max_workers():
+	return max_workers
+
+func set_max_workers(N):
+	max_workers = N
+
+func get_num_workers():
+	var N = 0
+	for item in things:
+		if item["type"] == "worker":
+			N += item['count']
+	
+	return N
+
+func thing_cost_multiplier(thing_name):
+	for i in range(0, things.size()):
+		if things[i]['name'] == thing_name.to_lower():
+			for j in range(0, things[i]['cost'].size()):
+				things[i]['cost'][j]['value'] *= Globals.get("COST_MULTIPLIER")

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "wood",
+    "dependencies":
+    [
+      {
+        "item": "rocks",
+        "value": 5},
+    ]
+  },
+  {
+    "name": "gatherer",
+    "dependencies":
+    [
+      {
+        "item": "shelter",
+        "value": 1},
+    ]
+  },
+  {
+    "name": "woodcutter",
+    "dependencies":
+    [
+      {
+        "item": "shelter",
+        "value": 1},
+      {
+        "item": "gatherer",
+        "value": 1},
+    ]
+  },
+  {
+    "name": "shelter",
+    "dependencies":
+    [
+      {
+        "item": "atmospheric_water_generator",
+        "value": 1},
+        {
+        "item": "greenhouse",
+        "value": 1},
+    ]
+  },
+  {
+    "name": "atmospheric_water_generator",
+    "dependencies":
+    [
+      {
+        "item": "rocks",
+        "value": 10},
+        {
+        "item": "wood",
+        "value": 10},
+    ]
+  },
+  {
+    "name": "greenhouse",
+    "dependencies":
+    [
+      {
+        "item": "atmospheric_water_generator",
+        "value": 1},
+    ]
+  }
+]
