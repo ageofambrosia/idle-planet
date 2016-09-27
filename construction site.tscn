@@ -208,7 +208,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Button" type="Button" parent="."]
+[node name="basecamp_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -224,7 +224,7 @@ shortcut = null
 flat = false
 script/script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="Button"]
+[node name="Label" type="Label" parent="basecamp_button"]
 
 rect/scale = Vector2( 1.5, 1.5 )
 focus/ignore_mouse = true
@@ -240,7 +240,23 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Button1" type="Button" parent="."]
+[node name="new_label" type="Label" parent="basecamp_button"]
+
+rect/rotation = 45.0
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 60.0
+margin/top = 67.0
+margin/right = 100.0
+margin/bottom = 81.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="log_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -256,7 +272,7 @@ shortcut = null
 flat = false
 script/script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="Button1"]
+[node name="Label" type="Label" parent="log_button"]
 
 rect/scale = Vector2( 1.5, 1.5 )
 focus/ignore_mouse = true
@@ -272,7 +288,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Button2" type="Button" parent="."]
+[node name="construction_site_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -289,7 +305,7 @@ shortcut = null
 flat = false
 script/script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="Button2"]
+[node name="Label" type="Label" parent="construction_site_button"]
 
 rect/scale = Vector2( 1.5, 1.5 )
 focus/ignore_mouse = true

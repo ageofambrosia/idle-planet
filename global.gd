@@ -6,6 +6,7 @@ var max_workers = 1
 var things = ""
 var deps = ""
 var log_str = Array()
+var new = {"basecamp": false, "construction site": false}
 
 func _ready():
 	things = get_node("/root/global").getThings()
@@ -28,7 +29,13 @@ func setScene(scene):
    currentScene = s.instance()
    # add scene to root
    get_tree().get_root().add_child(currentScene)
-   
+  
+func getNewFlag(scene_name):
+	return new[scene_name]
+
+func setNewFlag(scene_name, value):
+	new[scene_name] = value
+
 func setVisibilityAllThings():
 	for item in deps:
 		var this_thing_name = item['name']
@@ -39,8 +46,14 @@ func setVisibilityAllThings():
 				thing_is_visible = true
 			else:
 				thing_is_visible = false
+				break
 			
 		if thing_is_visible:
+			if get_node("/root/global").getThingAvailable(this_thing_name) == false:
+				if get_node("/root/global").getThingProperty(this_thing_name, 'type') == 'building':
+					get_node("/root/global").setNewFlag('construction site', true)
+				else:
+					get_node("/root/global").setNewFlag('basecamp', true)
 			get_node("/root/global").setThingAvailable(this_thing_name)
 
 func alterRate(thing_name, amount):

@@ -19,6 +19,11 @@ func _ready():
 
 func _process(delta):
 	
+	if get_node("construction_site_button").is_disabled():
+		get_node("/root/global").setNewFlag("construction site", false)
+	if get_node("basecamp_button").is_disabled():
+		get_node("/root/global").setNewFlag("basecamp", false)
+		
 	accum += delta
 	get_node("/root/global").setVisibilityAllThings()
 	setVisibilities()
@@ -26,6 +31,11 @@ func _process(delta):
 	for child in children:
 		if get_node("/root/global").getThingProperty(child.get_name(), 'type') == 'resource':
 			child.get_node('details').set_text(str("Get ", child.get_name()))
+		if child.has_node("new_label"):
+			if get_node("/root/global").getNewFlag(child.get_node('Label').get_text().to_lower()):
+				child.get_node("new_label").set_text("NEW!")
+				child.get_node("new_label").set_size(Vector2(20,20))
+				child.get_node("new_label").add_color_override("font_color", Color(0,1,0))
 	
 	get_node("workers_label").set_text(str("Workers: ", get_node("/root/global").get_num_workers(), " / ", get_node("/root/global").get_max_workers()))
 	if accum > 1:
@@ -60,6 +70,7 @@ func _process(delta):
 	
 	if has_node("Log"):
 		get_node("Log/log").set_text(get_node("/root/global").getLog())
+	
 	
 func setVisibilities():
 	var children = get_children()
