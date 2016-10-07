@@ -1,65 +1,129 @@
-[
-  {
-    "name": "wood",
-    "dependencies":
-    [
-      {
-        "item": "rocks",
-        "value": 5},
-    ]
-  },
-  {
-    "name": "gatherer",
-    "dependencies":
-    [
-      {
-        "item": "shelter",
-        "value": 1},
-    ]
-  },
-  {
-    "name": "woodcutter",
-    "dependencies":
-    [
-      {
-        "item": "shelter",
-        "value": 1},
-      {
-        "item": "gatherer",
-        "value": 1},
-    ]
-  },
-  {
-    "name": "shelter",
-    "dependencies":
-    [
-      {
-        "item": "atmospheric_water_generator",
-        "value": 1},
+{
+  "resources": [
+    {
+      "name": "wood",
+      "dependencies":
+      [
         {
-        "item": "greenhouse",
-        "value": 1},
-    ]
-  },
-  {
-    "name": "atmospheric_water_generator",
-    "dependencies":
-    [
-      {
-        "item": "rocks",
-        "value": 10},
+          "item": "rocks",
+          "value": 10},
+      ]
+    }
+  ],
+  "workers": [
+    {
+      "name": "gatherer",
+      "dependencies":
+      [
         {
-        "item": "wood",
-        "value": 10},
-    ]
-  },
-  {
-    "name": "greenhouse",
-    "dependencies":
-    [
-      {
-        "item": "atmospheric_water_generator",
-        "value": 1},
-    ]
-  }
-]
+          "item": "shelter",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "woodcutter",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 1},
+        {
+          "item": "gatherer",
+          "value": 1},
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "name": "shelter",
+      "dependencies":
+      [
+        {
+          "item": "atmospheric_water_generator",
+          "value": 1},
+          {
+          "item": "greenhouse",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "mining_drill",
+      "dependencies":
+      [
+        {
+          "item": "mining",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "atmospheric_water_generator",
+      "dependencies":
+      [
+        {
+          "item": "rocks",
+          "value": 1},
+          {
+          "item": "wood",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "greenhouse",
+      "dependencies":
+      [
+        {
+          "item": "atmospheric_water_generator",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "barn",
+      "dependencies":
+      [
+        {
+          "item": "basic storage",
+          "value": 1},
+      ]
+    }
+  ],
+  "upgrades": [
+    {
+      "name": "backpacks",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "steel axes",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 2},
+      ]
+    }
+  ],
+  "science": [
+    {
+      "name": "mining",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 5},
+      ]
+    },
+    {
+      "name": "basic storage",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 2},
+      ]
+    }
+  ]
+}
