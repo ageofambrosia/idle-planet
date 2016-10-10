@@ -54,9 +54,9 @@ func _process(delta):
 	if accum > 1:
 		accum = 0
 		get_node("/root/global").setAllWorking()
+		get_node("/root/global").setRates()
 	
 	get_node("/root/global").incrementThings(delta)
-	get_node("/root/global").setRates()
 	
 	# Populate inventory
 	var resource_str = ""
@@ -65,14 +65,14 @@ func _process(delta):
 	var things = get_node("/root/global").getThings()
 	for item in things["resources"]:
 		if get_node("/root/global").getThingAvailable(item["name"]):
-			resource_str = str(resource_str, item["name"], ": ", "%2.1f / %2.0f" % [get_node("/root/global").getThingCount(item["name"]), get_node("/root/global").getThingProperty(item["name"], 'capacity')], \
+			resource_str = str(resource_str, item["name"], ": ", "%s / %2.0f" % [get_node("/root/global").getThingCountStr(item["name"]), get_node("/root/global").getThingProperty(item["name"], 'capacity')], \
 							"    (", "%+2.2f" % get_node("/root/global").getThingProperty(item["name"],'rate'), " / sec)", "\n")
 	for item in things["buildings"]:
 		if get_node("/root/global").getThingAvailable(item["name"]):
-			building_str = str(building_str, item["name"], ": ", get_node("/root/global").getThingCount(item["name"]), "\n")
+			building_str = str(building_str, item["name"], ": ", "%2.0f" % get_node("/root/global").getThingCount(item["name"]), "\n")
 	for item in things["workers"]:
 		if get_node("/root/global").getThingAvailable(item["name"]):
-			worker_str = str(worker_str, item["name"], ": ", get_node("/root/global").getThingCount(item["name"]), "\n")
+			worker_str = str(worker_str, item["name"], ": ", "%2.0f" % get_node("/root/global").getThingCount(item["name"]), "\n")
 	
 	get_node("Resources/inventory").set_text(resource_str)
 	get_node("Buildings/inventory").set_text(building_str)

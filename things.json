@@ -4,7 +4,7 @@
       "name": "rocks",
       "type": "resource",
       "count": 0,
-      "capacity": 1000,
+      "capacity": 100,
       "rate": 0,
       "is_visible": 1
     },
@@ -12,7 +12,7 @@
       "name": "wood",
       "type": "resource",
       "count": 0,
-      "capacity": 1000,
+      "capacity": 100,
       "rate": 0,
       "is_visible": 0
     },
@@ -20,7 +20,7 @@
       "name": "metal",
       "type": "resource",
       "count": 0,
-      "capacity": 1000,
+      "capacity": 25,
       "rate": 0,
       "is_visible": 0
     },
@@ -28,15 +28,15 @@
       "name": "water",
       "type": "resource",
       "count": 10,
-      "capacity": 1000,
+      "capacity": 10,
       "rate": 0,
-      "is_visible": 0
+      "is_visible": 1
     },
     {
       "name": "potatoes",
       "type": "resource",
       "count": 0,
-      "capacity": 1000,
+      "capacity": 10,
       "rate": 0,
       "is_visible": 0
     },
@@ -44,9 +44,17 @@
       "name": "waste",
       "type": "resource",
       "count": 0,
-      "capacity": 1000,
+      "capacity": 100,
       "rate": 0,
       "is_visible": 0
+    },
+    {
+      "name": "science",
+      "type": "resource",
+      "count": 0,
+      "capacity": 250,
+      "rate": 0,
+      "is_visible": 1
     }
   ],
   "workers": [
@@ -71,7 +79,7 @@
           "item": "water",
           "value": 0.05}
       ],
-      "is_visible": 0
+      "is_visible": 1
     },{
       "name": "gatherer",
       "type": "worker",
@@ -81,10 +89,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 10},
         {
           "item": "wood",
-          "value": 1}
+          "value": 10}
       ],
       "production":
       [
@@ -115,15 +123,49 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 10},
         {
           "item": "wood",
-          "value": 1}
+          "value": 10}
       ],
       "production":
       [
         {
           "item": "wood",
+          "value": 0.5},
+        {
+          "item": "waste",
+          "value": 0.01}
+      ],
+      "consumption":
+      [
+        {
+          "item": "potatoes",
+          "value": 0.05},
+        {
+          "item": "water",
+          "value": 0.05}
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "scientist",
+      "type": "worker",
+      "count": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 50},
+        {
+          "item": "wood",
+          "value": 50}
+      ],
+      "production":
+      [
+        {
+          "item": "science",
           "value": 0.5},
         {
           "item": "waste",
@@ -151,10 +193,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 10},
         {
           "item": "wood",
-          "value": 1}
+          "value": 20}
       ],
       "production":
       [
@@ -165,6 +207,7 @@
       "consumption":
       [
       ],
+      "notes": "",
       "is_visible": 0
     },
     {
@@ -177,10 +220,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 25},
         {
           "item": "wood",
-          "value": 1}
+          "value": 20}
       ],
       "production":
       [
@@ -197,6 +240,7 @@
           "item": "waste",
           "value": 0.01}
       ],
+      "notes": "",
       "is_visible": 0
     },
     {
@@ -208,10 +252,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 50},
         {
           "item": "wood",
-          "value": 1}
+          "value": 25}
       ],
       "production":
       [
@@ -219,6 +263,7 @@
       "consumption":
       [
       ],
+      "notes": "",
       "is_visible": 0
     },
     {
@@ -231,10 +276,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 100},
         {
           "item": "wood",
-          "value": 1}
+          "value": 100}
       ],
       "production":
       [
@@ -251,6 +296,7 @@
           "item": "potatoes",
           "value": 0.01}
       ],
+      "notes": "",
       "is_visible": 0
     },
     {
@@ -263,10 +309,10 @@
       [
         {
           "item": "rocks",
-          "value": 1},
+          "value": 50},
         {
           "item": "wood",
-          "value": 1}
+          "value": 50}
       ],
       "production":
       [
@@ -274,6 +320,62 @@
       "consumption":
       [
       ],
+      "notes": "Increase resource storage by 50%",
+      "is_visible": 0
+    },
+    {
+      "name": "library",
+      "type": "building",
+      "count": 0,
+      "rate": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 100},
+        {
+          "item": "wood",
+          "value": 100}
+      ],
+      "production":
+      [
+        {
+          "item": "science",
+          "value": 0.1
+        }
+      ],
+      "consumption":
+      [
+      ],
+      "notes": "Increase science capacity by 10%",
+      "is_visible": 0
+    },
+    {
+      "name": "spaceship",
+      "type": "building",
+      "count": 0,
+      "rate": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 10000},
+        {
+          "item": "wood",
+          "value": 10000},
+        {
+          "item": "metal",
+          "value": 10000}
+      ],
+      "production":
+      [
+      ],
+      "consumption":
+      [
+      ],
+      "notes": "",
       "is_visible": 0
     }
   ],
@@ -282,11 +384,12 @@
       "name": "backpacks",
       "type": "upgrade",
       "used": 0,
+      "count": 0,
       "cost":
       [
         {
           "item": "wood",
-          "value": 5
+          "value": 100
         }
       ],
       "effect":
@@ -302,11 +405,12 @@
       "name": "steel axes",
       "type": "upgrade",
       "used": 0,
+      "count": 0,
       "cost":
       [
         {
           "item": "rocks",
-          "value": 5
+          "value": 250
         }
       ],
       "effect":
@@ -328,15 +432,12 @@
       "cost":
       [
         {
-          "item": "rocks",
-          "value": 5
+          "item": "science",
+          "value": 100
         }
       ],
       "effect":
       [
-        {
-          "item": "mining_drill"
-        }
       ],
       "is_visible": 0
     },
@@ -348,15 +449,46 @@
       "cost":
       [
         {
-          "item": "rocks",
-          "value": 5
+          "item": "science",
+          "value": 200
         }
       ],
       "effect":
       [
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "engineering",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
         {
-          "item": "barn"
+          "item": "science",
+          "value": 300
         }
+      ],
+      "effect":
+      [
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "space",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
+        {
+          "item": "science",
+          "value": 300
+        }
+      ],
+      "effect":
+      [
       ],
       "is_visible": 0
     }

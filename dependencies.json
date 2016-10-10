@@ -8,6 +8,15 @@
           "item": "rocks",
           "value": 10},
       ]
+    },
+    {
+      "name": "science",
+      "dependencies":
+      [
+        {
+          "item": "library",
+          "value": 1},
+      ]
     }
   ],
   "workers": [
@@ -30,6 +39,15 @@
         {
           "item": "gatherer",
           "value": 1},
+      ]
+    },
+    {
+      "name": "scientist",
+      "dependencies":
+      [
+        {
+          "item": "library",
+          "value": 1}
       ]
     }
   ],
@@ -84,6 +102,24 @@
           "item": "basic storage",
           "value": 1},
       ]
+    },
+    {
+      "name": "library",
+      "dependencies":
+      [
+        {
+          "item": "shelter",
+          "value": 3},
+      ]
+    },
+    {
+      "name": "spaceship",
+      "dependencies":
+      [
+        {
+          "item": "space",
+          "value": 1},
+      ]
     }
   ],
   "upgrades": [
@@ -112,8 +148,8 @@
       "dependencies":
       [
         {
-          "item": "shelter",
-          "value": 5},
+          "item": "library",
+          "value": 1},
       ]
     },
     {
@@ -122,7 +158,25 @@
       [
         {
           "item": "shelter",
-          "value": 2},
+          "value": 3},
+      ]
+    },
+    {
+      "name": "engineering",
+      "dependencies":
+      [
+        {
+          "item": "basic storage",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "space",
+      "dependencies":
+      [
+        {
+          "item": "engineering",
+          "value": 1},
       ]
     }
   ]

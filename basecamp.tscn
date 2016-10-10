@@ -273,6 +273,66 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="Scientist" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 480.0
+margin/top = 210.0
+margin/right = 680.0
+margin/bottom = 360.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+textures/pressed = ExtResource( 3 )
+textures/disabled = ExtResource( 4 )
+script/script = ExtResource( 7 )
+
+[node name="details" type="Label" parent="Scientist"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 6.0
+margin/right = 99.0
+margin/bottom = 20.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="production" type="Label" parent="Scientist"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 99.0
+margin/bottom = 84.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="consumption" type="Label" parent="Scientist"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 110.0
+margin/right = 99.0
+margin/bottom = 124.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="construction_site_button" type="Button" parent="."]
 
 focus/ignore_mouse = false

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://basecamp.gd" type="Script" id=1]
 [ext_resource path="res://switch_scenes.gd" type="Script" id=2]
 [ext_resource path="res://black_rect.jpg" type="Texture" id=3]
+[ext_resource path="res://reset.gd" type="Script" id=4]
 
 [node name="Control" type="Control"]
 
@@ -335,5 +336,56 @@ margin/bottom = 40.0
 bbcode/enabled = false
 bbcode/bbcode = ""
 visible_characters = -1
+
+[node name="reset_button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 110.0
+margin/bottom = 130.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "RESET!"
+flat = false
+script/script = ExtResource( 4 )
+
+[node name="reset_button1" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 110.0
+margin/bottom = 130.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "RESET!"
+flat = false
+script/script = ExtResource( 4 )
+
+[node name="reset_button2" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 110.0
+margin/bottom = 130.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "RESET!"
+flat = false
+script/script = ExtResource( 4 )
 
 

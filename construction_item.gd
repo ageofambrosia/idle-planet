@@ -20,8 +20,22 @@ func _pressed():
 	
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'production'):
 		get_node("/root/global").setThingAvailable(item["item"])
-		
+	
+	if this_thing_name.to_lower() == 'barn':
+		get_node("/root/global").increase_capacities(Globals.get("BARN_CAPACITY_MULTIPLIER"), this_thing_name.to_lower())
+	if this_thing_name.to_lower() == 'library':
+		get_node("/root/global").increase_capacities(Globals.get("LIBRARY_CAPACITY_MULTIPLIER"), this_thing_name.to_lower())
+	
 	get_node("/root/global").thing_cost_multiplier(this_thing_name)
+	
+	if this_thing_name.to_lower() == "spaceship":
+		var new_node = Label.new() 
+		new_node.set_scale(Vector2(3,3))
+		new_node.set_text("YOU WON")
+		new_node.set_pos(get_viewport().get_rect().size/2)
+		get_parent().add_child(new_node)
+
+		get_node("/root/global").writeToLog('YOU WON')
 
 func _process(delta):
 	# Do we have the necessary resources for this building?
@@ -43,6 +57,9 @@ func _process(delta):
 	var prod_str = ""
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'production'):
 		prod_str = str(prod_str, item['item'].capitalize(), ": +", round(item['value']*100)/100, " / sec\n")
+	var note = get_node("/root/global").getThingProperty(this_thing_name, 'notes')
+	if note.length() > 0:
+		prod_str = str(prod_str, note, "\n")
 	get_node("production").set_text(str(prod_str))
 	get_node("production").set_pos(get_node("details").get_pos()+Vector2(0,get_node("details").get_size()[1]*0.75))
 	
@@ -51,3 +68,4 @@ func _process(delta):
 		cons_str = str(cons_str, item['item'].capitalize(), ": -", round(item['value']*100)/100, " / sec\n")
 	get_node("consumption").set_text(str(cons_str))
 	get_node("consumption").set_pos(get_node("production").get_pos()+Vector2(0,get_node("production").get_size()[1]*0.75))
+

@@ -8,7 +8,6 @@ func _pressed():
 	var re = "\\- ([a-z_ ]*) \\-"
 	expr.compile(re)
 	var this_thing_name = expr.get_capture(expr.find(get_node("details").get_text().to_lower())+1)
-	print(this_thing_name)
 	var effects = get_node("/root/global").getThingProperty(this_thing_name, 'effect')
 	for effect in effects:
 		if 'value' in effect.keys():
@@ -16,8 +15,7 @@ func _pressed():
 			for produce in produces:
 				if produce['item'] != 'waste':
 					get_node("/root/global").multiplyThingProduction(effect['item'], produce['item'], effect['value'])
-		else:
-			get_node("/root/global").addInventory(this_thing_name, 1)
+	get_node("/root/global").addInventory(this_thing_name, 1)
 
 	get_node("/root/global").setThingUnavailable(this_thing_name)
 	get_node("/root/global").setThingUsed(this_thing_name)
@@ -37,7 +35,6 @@ func _process(delta):
 	var this_thing_name = expr.get_capture(expr.find(get_node("details").get_text().to_lower())+1)
 	if not this_thing_name.empty():
 		var can_afford = true
-		print(this_thing_name)
 		for item in get_node("/root/global").getThingProperty(this_thing_name, 'cost'):
 			can_afford = can_afford and get_node("/root/global").getThingCount(item["item"]) >= item["value"]
 		
