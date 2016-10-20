@@ -6,7 +6,7 @@
       [
         {
           "item": "rocks",
-          "value": 10},
+          "value": 25},
       ]
     },
     {
@@ -15,6 +15,15 @@
       [
         {
           "item": "library",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "potatoes",
+      "dependencies":
+      [
+        {
+          "item": "greenhouse",
           "value": 1},
       ]
     }
@@ -27,6 +36,9 @@
         {
           "item": "shelter",
           "value": 1},
+        {
+          "item": "greenhouse",
+          "value": 1},
       ]
     },
     {
@@ -34,11 +46,8 @@
       "dependencies":
       [
         {
-          "item": "shelter",
-          "value": 1},
-        {
           "item": "gatherer",
-          "value": 1},
+          "value": 5},
       ]
     },
     {
@@ -47,7 +56,10 @@
       [
         {
           "item": "library",
-          "value": 1}
+          "value": 1},
+        {
+          "item": "shelter",
+          "value": 2}
       ]
     }
   ],
@@ -57,11 +69,8 @@
       "dependencies":
       [
         {
-          "item": "atmospheric_water_generator",
-          "value": 1},
-          {
-          "item": "greenhouse",
-          "value": 1},
+          "item": "rocks",
+          "value": 20}
       ]
     },
     {
@@ -77,12 +86,12 @@
       "name": "atmospheric_water_generator",
       "dependencies":
       [
-        {
-          "item": "rocks",
-          "value": 1},
           {
-          "item": "wood",
-          "value": 1},
+          "item": "rocks",
+          "value": 10},
+          {
+          "item": "shelter",
+          "value": 1}
       ]
     },
     {
@@ -91,7 +100,7 @@
       [
         {
           "item": "atmospheric_water_generator",
-          "value": 1},
+          "value": 3},
       ]
     },
     {
@@ -104,12 +113,45 @@
       ]
     },
     {
+      "name": "warehouse",
+      "dependencies":
+      [
+        {
+          "item": "advanced storage",
+          "value": 1},
+      ]
+    },
+    {
       "name": "library",
       "dependencies":
       [
         {
           "item": "shelter",
           "value": 3},
+        {
+          "item": "greenhouse",
+          "value": 3},
+      ]
+    },
+    {
+      "name": "factory",
+      "dependencies":
+      [
+        {
+          "item": "engineering",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "forge",
+      "dependencies":
+      [
+        {
+          "item": "engineering",
+          "value": 1},
+        {
+          "item": "factory",
+          "value": 2},
       ]
     },
     {
@@ -128,8 +170,68 @@
       "dependencies":
       [
         {
-          "item": "shelter",
+          "item": "gatherer",
+          "value": 10},
+      ]
+    },
+    {
+      "name": "yokes",
+      "dependencies":
+      [
+        {
+          "item": "mining_drill",
           "value": 1},
+        {
+          "item": "backpacks",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "wheelbarrows",
+      "dependencies":
+      [
+        {
+          "item": "library",
+          "value": 10},
+        {
+          "item": "yokes",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "self driving wheelbarrows",
+      "dependencies":
+      [
+        {
+          "item": "rocks",
+          "value": 10000},
+        {
+          "item": "wheelbarrows",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "drones",
+      "dependencies":
+      [
+        {
+          "item": "engineering",
+          "value": 1},
+        {
+          "item": "self driving wheelbarrows",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "alien bottomless backpacks",
+      "dependencies":
+      [
+        {
+          "item": "drones",
+          "value": 1},
+        {
+          "item": "spaceship",
+          "value": 1}
       ]
     },
     {
@@ -139,8 +241,80 @@
         {
           "item": "shelter",
           "value": 2},
+        {
+          "item": "woodcutter",
+          "value": 10}
       ]
-    }
+    },
+    {
+      "name": "titanium axes",
+      "dependencies":
+      [
+        {
+          "item": "steel axes",
+          "value": 1},
+        {
+          "item": "barn",
+          "value": 10}
+      ]
+    },
+    {
+      "name": "magnesium alloy axes",
+      "dependencies":
+      [
+        {
+          "item": "titanium axes",
+          "value": 1},
+        {
+          "item": "wood",
+          "value": 10000}
+      ]
+    },
+    {
+      "name": "alien alloy axes",
+      "dependencies":
+      [
+        {
+          "item": "mining_drill",
+          "value": 25}
+      ]
+    },
+    {
+      "name": "diamond axes",
+      "dependencies":
+      [
+        {
+          "item": "spaceship",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "steel drill bits",
+      "dependencies":
+      [
+        {
+          "item": "wheelbarrows",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "titanium drill bits",
+      "dependencies":
+      [
+        {
+          "item": "steel drill bits",
+          "value": 1}
+      ]
+    },
+    {
+      "name": "explosive mining",
+      "dependencies":
+      [
+        {
+          "item": "titanium drill bits",
+          "value": 1}
+      ]
+    },
   ],
   "science": [
     {
@@ -157,12 +331,15 @@
       "dependencies":
       [
         {
+          "item": "mining",
+          "value": 1},
+        {
           "item": "shelter",
           "value": 3},
       ]
     },
     {
-      "name": "engineering",
+      "name": "writing",
       "dependencies":
       [
         {
@@ -171,12 +348,55 @@
       ]
     },
     {
+      "name": "advanced storage",
+      "dependencies":
+      [
+        {
+          "item": "basic storage",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "chemistry",
+      "dependencies":
+      [
+        {
+          "item": "advanced storage",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "metal detection",
+      "dependencies":
+      [
+        {
+          "item": "chemistry",
+          "value": 1},
+      ]
+    },
+    {
+      "name": "engineering",
+      "dependencies":
+      [
+        {
+          "item": "chemistry",
+          "value": 1},
+      ]
+    },
+    {
       "name": "space",
       "dependencies":
       [
         {
+          "item": "forge",
+          "value": 2},
+        {
+          "item": "factory",
+          "value": 3},
+        {
           "item": "engineering",
-          "value": 1},
+          "value": 1}
+
       ]
     }
   ]

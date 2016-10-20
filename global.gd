@@ -12,13 +12,38 @@ var new = {"basecamp": false, "construction site": false}
 var log_accum = 0
 var upgrades_visible = false
 var science_visible = false
-var cost_multiplier_dev = .01
+var cost_multiplier_dev = 1
 var num_resets = 0
+var vals = [1e24, 1e21, 1e18, 1e15, 1e12, 1e9, 1e6, 1e3]
+var units = ['Y', 'Z', 'E', 'P', 'T', 'B', 'M', 'k']
+var rate_mult = 1
+var metal_prob = 0
+var metal_max = -1
+var seconds_played = 0
+var clicks = 0
 
 func _ready():
+	randomize()
+	
 	if num_resets == 0:
-		things_original = get_node("/root/global").getThings()
-	things = get_node("/root/global").getThings()
+		things_original = get_node("/root/global").readThings("res://things.json")
+	
+	var savegame = File.new()
+	if savegame.file_exists("user://savegame.save"):
+		things = get_node("/root/global").readThings("user://savegame.save")
+	else:
+		things = get_node("/root/global").readThings("res://things.json")
+
+	if savegame.file_exists("user://time.save"):
+		var file = File.new()
+		file.open("user://time.save", file.READ)
+		seconds_played = str2var(str(file.get_as_text()))
+
+	if savegame.file_exists("user://clicks.save"):
+		var file = File.new()
+		file.open("user://clicks.save", file.READ)
+		clicks = str2var(str(file.get_as_text()))
+
 	deps = get_node("/root/global").getDependencies()
 	
 	get_node("/root/global").mult_costs()
@@ -26,11 +51,16 @@ func _ready():
 	#On load set the current scene to the last scene available
 	currentScene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 	
+	setMetalMax(getThingProperty('metal', 'capacity')/2)
+	
 	Globals.set("WORKERS_PER_SHELTER", 2)
 	Globals.set("BARN_CAPACITY_MULTIPLIER", 1.5)
+	Globals.set("WAREHOUSE_CAPACITY_MULTIPLIER", 2)
 	Globals.set("LIBRARY_CAPACITY_MULTIPLIER", 1.1)
+	Globals.set("FACTORY_PRODUCTION_MULTIPLIER", 1.05)
 	Globals.set("COST_MULTIPLIER", 1.15)
 	Globals.set("RESET_BONUS", 0.15)
+	Globals.set("METAL_PROB", 0.01)
    
 # create a function to switch between scenes 
 func setScene(scene):
@@ -57,16 +87,71 @@ func getNewFlag(scene_name):
 
 func setNewFlag(scene_name, value):
 	new[scene_name] = value
+	
+func setMetalProb(val):
+	metal_prob = val
+	
+func setMetalMax(val):
+	metal_max = val
+
+func metalFound():
+	var amount_found = rand_range(1, metal_max)
+	var did_find = rand_range(0, 1) > (1 - metal_prob)
+	if did_find:
+		return round(amount_found)
+	else:
+		return 0
+
+func addSecondsPlayed(val):
+	seconds_played += val
+
+func addClick():
+	clicks += 1
+
+func getTimePlayed():
+	var s = seconds_played
+	var m = floor(s / 60)
+	var h = floor(m / 60)
+	
+	m = int(m) % 60
+	s = int(s) % 60
+	return str('Playing time: %02d:%02d:%02d' % [h, m, s])
+
+func getSecondsPlayed():
+	return(seconds_played)
+
+func getHoursPlayed():
+	return(floor(seconds_played/60/60))
+
+func getClicks():
+	return clicks
 
 func reset():
 	num_resets += 1
-	var mult = 1 + (Globals.get('RESET_BONUS') * get_node("/root/global").getThingCount('shelter'))
-	get_node("/root/global").writeToLog(str("Reset game! Your bonus efficiency multiplier was ", mult))
+	# One bonus multiplier for each hour played
+	rate_mult = 1 + Globals.get('RESET_BONUS') * getHoursPlayed()
+	get_node("/root/global").writeToLog(str("Reset game! Your bonus efficiency multiplier is now ", rate_mult))
 	things = str2var( var2str( things_original ) )
 	for thinggroup in ['workers', 'buildings']:
 		for i in range(0, things[thinggroup].size()):
 			for j in range(0, things[thinggroup][i]['production'].size()):
-				things[thinggroup][i]['production'][j]['value'] *= mult
+				if things[thinggroup][i]['production'][j]['item'] != 'waste':
+					things[thinggroup][i]['production'][j]['value'] *= rate_mult
+	get_node("/root/global").mult_costs()
+	get_node("/root/global").setUpgradesVisible(false)
+	get_node("/root/global").setScienceVisible(false)
+
+func hard_reset():
+	num_resets = 0
+	clicks = 0
+	seconds_played = 0
+	var savegame = Directory.new()
+	savegame.remove("user://savegame.save")
+	savegame.remove("user://time.save")
+	savegame.remove("user://clicks.save")
+	get_node("/root/global").setUpgradesVisible(false)
+	get_node("/root/global").setScienceVisible(false)
+	get_node("/root/global")._ready()
 
 func setVisibilityAllThings():
 	for depgroup in deps.keys():
@@ -94,9 +179,37 @@ func alterRate(thing_name, amount):
 		if things["resources"][i]["name"] == thing_name.to_lower():
 			things["resources"][i]["rate"] += amount
 
+func setRate(thing_name, amount):
+	for i in range(0, things["resources"].size()):
+		if things["resources"][i]["name"] == thing_name.to_lower():
+			things["resources"][i]["rate"] = amount
+
+func savegame():
+	var savedir = Directory.new()
+	savedir.remove("user://savegame.save")
+	savedir.remove("user://time.save")
+	var savegame = File.new()
+	savegame.open("user://savegame.save", File.WRITE)
+	var things = get_node("/root/global").getThings()
+	things = var2str(things)
+	savegame.store_string(things);
+	savegame.close()
+	
+	savegame.open("user://time.save", File.WRITE)
+	var tmp = var2str(seconds_played)
+	savegame.store_string(tmp);
+	savegame.close()
+	
+	savegame.open("user://clicks.save", File.WRITE)
+	var tmp = var2str(clicks)
+	savegame.store_string(tmp);
+	savegame.close()
+	
+	get_node("/root/global").writeToLog('Game saved!')
+	
 func setRates():
 	for item in things["resources"]:
-		get_node("/root/global").alterRate(item['name'], -get_node("/root/global").getThingProperty(item['name'], 'rate'))
+		get_node("/root/global").setRate(item['name'], 0)
 		
 	for thinggroup in ["buildings", "workers"]:
 		for item in things[thinggroup]:
@@ -108,9 +221,10 @@ func setRates():
 
 func killEverybody():
 	for i in range(0, things["workers"].size()):
-		things["workers"][i]["count"] = 0
+		if things["workers"][i]["name"] != 'you':
+			things["workers"][i]["count"] = 0
 	
-	get_node("/root/global").writeToLog(str('You ran out of water! Everybody DIIIEEEED!'))
+	get_node("/root/global").writeToLog(str('You ran out of water! EVERYBODY (except you) DIED!'))
 
 func setAllWorking():
 	for thinggroup in ['buildings', 'workers']:
@@ -156,6 +270,18 @@ func getThingProperty(thing_name, property):
 	
 	return null
 
+func add_production(worker, production_item, rate):
+	get_node("/root/global").setThingAvailable(production_item)
+	for item in things['workers']:
+		if item["name"] == worker.to_lower():
+			var new_item = {'item': production_item, 'value': rate}
+			item["production"].push_back(new_item)
+
+func multiplyAllBuildingsProduction(mult):
+	for i in range(0, things["buildings"].size()):
+		for j in range(0, things["buildings"][i]["production"].size()):
+			things["buildings"][i]["production"][j]["value"] *= mult
+
 func multiplyThingProduction(producer, produce, mult):
 	for thinggroup in ["workers", "buildings"]:
 		for i in range(0, things[thinggroup].size()):
@@ -164,14 +290,28 @@ func multiplyThingProduction(producer, produce, mult):
 					if things[thinggroup][i]["production"][j]["item"] == produce:
 						things[thinggroup][i]["production"][j]["value"] *= mult
 
+func getThingCapacity(thing_name):
+	for thinggroup in things.keys():
+		for item in things[thinggroup]:
+			if item["name"] == thing_name.to_lower():
+				var curr_val = round(item['capacity']*10)/10
+				var s = ""
+				for i in range(0, vals.size()):
+					if curr_val > vals[i]:
+						s = str('%2.1f' % (round(10*curr_val/vals[i])/10), units[i])
+						return s
+				
+				s = str('%2.1f' % curr_val)
+				return s
+	
+	return 0
+
 func getThingCountStr(thing_name):
 	for thinggroup in things.keys():
 		for item in things[thinggroup]:
 			if item["name"] == thing_name.to_lower():
 				var curr_val = round(item['count']*10)/10
 				var s = ""
-				var vals = [1e9, 1e6, 1e3]
-				var units = ['B', 'M', 'k']
 				for i in range(0, vals.size()):
 					if curr_val > vals[i]:
 						s = str('%2.1f' % (round(10*curr_val/vals[i])/10), units[i])
@@ -252,13 +392,16 @@ func setWorking(thing_name, value):
 			if things[thinggroup][i]["name"] == thing_name.to_lower():
 				things[thinggroup][i]["working"] = value
 
-func getThings():
+func readThings(savefile):
 	var file = File.new()
-	file.open("res://things.json", file.READ)
+	file.open(savefile, file.READ)
 	var content =  str(file.get_as_text())
 	var things = Dictionary()
 	things.parse_json(content)
 	return(things)
+
+func getThings():
+	return things
 
 func getDependencies():
 	var file = File.new()
@@ -276,12 +419,14 @@ func set_max_workers(N):
 
 func increase_capacities(mult, building_name):
 	for i in range(0, things['resources'].size()):
-		if building_name == 'barn':
+		if building_name in ['barn', 'warehouse']:
 			if !things['resources'][i]['name'] == 'science':
 				things['resources'][i]['capacity'] *= mult
 		if building_name == 'library':
 			if things['resources'][i]['name'] == 'science':
 				things['resources'][i]['capacity'] *= mult
+	setMetalMax(getThingProperty('metal', 'capacity')/2)
+
 func get_num_workers():
 	var N = 0
 	for item in things["workers"]:
@@ -301,13 +446,13 @@ func writeToLog(text):
 	var hour = timeDict.hour;
 	var minute = timeDict.minute;
 	var second = timeDict.second;
-	log_str.push_back(str(hour, ":", minute, ":", second, " - ", text))
+	log_str.push_back("%02d:%02d:%02d - %s" % [hour, minute, second, text])
 
 func getLog():
 	var text = ""
 	if log_str.size() > 0:
 		text = log_str[log_str.size() - 1]
-		for i in range(1, min(100,log_str.size())):
+		for i in range(1, min(500,log_str.size())):
 			text = str(text, "\n", log_str[log_str.size() - i - 1])
 	else:
 		text = ""
@@ -319,3 +464,4 @@ func getLogLine():
 	text = str(log_str[log_str.size() - 1])
 	
 	return text
+	

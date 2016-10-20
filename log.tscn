@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://basecamp.gd" type="Script" id=1]
 [ext_resource path="res://switch_scenes.gd" type="Script" id=2]
 [ext_resource path="res://black_rect.jpg" type="Texture" id=3]
 [ext_resource path="res://reset.gd" type="Script" id=4]
+[ext_resource path="res://TitilliumWeb-BoldItalic.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://save.gd" type="Script" id=6]
 
 [node name="Control" type="Control"]
 
@@ -49,6 +51,22 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="new_label" type="Label" parent="basecamp_button"]
+
+rect/rotation = 45.0
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 60.0
+margin/top = 67.0
+margin/right = 100.0
+margin/bottom = 81.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="construction_site_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
@@ -77,6 +95,22 @@ margin/top = 40.0
 margin/right = 129.0
 margin/bottom = 54.0
 text = "Construction Site"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="new_label" type="Label" parent="construction_site_button"]
+
+rect/rotation = 45.0
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 60.0
+margin/top = 67.0
+margin/right = 100.0
+margin/bottom = 81.0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -121,30 +155,14 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 150.0
-margin/top = 60.0
+margin/top = 40.0
 margin/right = 550.0
-margin/bottom = 810.0
+margin/bottom = 790.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 3 )
 params/scale = Vector2( 2, 5 )
-
-[node name="Label" type="Label" parent="Log"]
-
-rect/scale = Vector2( 1.5, 1.5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
-text = "Log"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="log" type="RichTextLabel" parent="Log"]
 
@@ -162,14 +180,15 @@ visible_characters = -1
 
 [node name="Resources" type="TextureButton" parent="."]
 
+rect/scale = Vector2( 1.1, 1.1 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 20.0
-margin/top = 840.0
+margin/top = 810.0
 margin/right = 320.0
-margin/bottom = 1140.0
+margin/bottom = 1110.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -190,19 +209,19 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="inventory" type="Label" parent="Resources"]
+[node name="inventory" type="RichTextLabel" parent="Resources"]
 
-focus/ignore_mouse = true
+focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 10.0
-margin/top = 30.0
-margin/right = 99.0
-margin/bottom = 44.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 20.0
+margin/right = 300.0
+margin/bottom = 300.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
 
 [node name="Buildings" type="TextureButton" parent="."]
 
@@ -211,9 +230,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 440.0
-margin/top = 840.0
+margin/top = 810.0
 margin/right = 690.0
-margin/bottom = 990.0
+margin/bottom = 960.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -234,20 +253,19 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="inventory" type="Label" parent="Buildings"]
+[node name="inventory" type="RichTextLabel" parent="Buildings"]
 
-rect/scale = Vector2( 0.9, 0.9 )
-focus/ignore_mouse = true
+focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 10.0
-margin/top = 30.0
-margin/right = 99.0
-margin/bottom = 44.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 20.0
+margin/right = 250.0
+margin/bottom = 150.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
 
 [node name="Workers" type="TextureButton" parent="."]
 
@@ -279,35 +297,19 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="inventory" type="Label" parent="Workers"]
+[node name="inventory" type="RichTextLabel" parent="Workers"]
 
-rect/scale = Vector2( 0.9, 0.9 )
-focus/ignore_mouse = true
+focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 10.0
-margin/top = 30.0
-margin/right = 99.0
-margin/bottom = 44.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Title" type="Label" parent="."]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
+size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
-text = "LOG"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+margin/top = 20.0
+margin/right = 250.0
+margin/bottom = 150.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
 
 [node name="workers_label" type="Label" parent="."]
 
@@ -323,19 +325,19 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="time_label" type="Label" parent="."]
 
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
-bbcode/enabled = false
-bbcode/bbcode = ""
-visible_characters = -1
+size_flags/vertical = 0
+margin/left = 160.0
+margin/top = 5.0
+margin/right = 200.0
+margin/bottom = 19.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="reset_button" type="Button" parent="."]
 
@@ -343,49 +345,51 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 10.0
+margin/left = 20.0
 margin/top = 70.0
-margin/right = 110.0
+margin/right = 120.0
 margin/bottom = 130.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "RESET!"
+text = "REBOOT SHIP"
 flat = false
 script/script = ExtResource( 4 )
 
-[node name="reset_button1" type="Button" parent="."]
+[node name="hard_reset_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 10.0
+margin/left = 590.0
 margin/top = 70.0
-margin/right = 110.0
+margin/right = 690.0
 margin/bottom = 130.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 1, 0.0234375, 0.0234375, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "RESET!"
+text = "RESET GAME!"
 flat = false
 script/script = ExtResource( 4 )
 
-[node name="reset_button2" type="Button" parent="."]
+[node name="save_button" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 10.0
-margin/top = 70.0
-margin/right = 110.0
-margin/bottom = 130.0
+margin/left = 20.0
+margin/top = 160.0
+margin/right = 120.0
+margin/bottom = 220.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "RESET!"
+text = "SAVE"
 flat = false
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 
 

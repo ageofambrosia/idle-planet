@@ -4,6 +4,7 @@ func _ready():
 	set_process(true)
 
 func _pressed():
+	get_node("/root/global").addClick()
 	var this_thing_name = str(get_node("details").get_parent().get_name())
 	get_node("/root/global").addInventory(this_thing_name, 1)
 	var s = ''
@@ -12,8 +13,6 @@ func _pressed():
 	get_node("/root/global").writeToLog(str('Built a', s, ' ', this_thing_name.replace('_', ' '), '!'))
 	get_node("/root/global").log_reset()
 	get_parent().get_node("log_line").set_bbcode(str('[center]', get_node("/root/global").getLogLine(), '[/center]'))
-	if this_thing_name == "Shelter":
-		get_node("/root/global").set_max_workers(get_node("/root/global").get_max_workers() + Globals.get("WORKERS_PER_SHELTER"))
 	
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'cost'):
 		get_node("/root/global").subtractInventory(item["item"], item["value"])
@@ -23,8 +22,12 @@ func _pressed():
 	
 	if this_thing_name.to_lower() == 'barn':
 		get_node("/root/global").increase_capacities(Globals.get("BARN_CAPACITY_MULTIPLIER"), this_thing_name.to_lower())
+	if this_thing_name.to_lower() == 'warehouse':
+		get_node("/root/global").increase_capacities(Globals.get("WAREHOUSE_CAPACITY_MULTIPLIER"), this_thing_name.to_lower())
 	if this_thing_name.to_lower() == 'library':
 		get_node("/root/global").increase_capacities(Globals.get("LIBRARY_CAPACITY_MULTIPLIER"), this_thing_name.to_lower())
+	if this_thing_name.to_lower() == 'factory':
+		get_node("/root/global").multiplyAllBuildingsProduction(Globals.get("FACTORY_PRODUCTION_MULTIPLIER"))
 	
 	get_node("/root/global").thing_cost_multiplier(this_thing_name)
 	
@@ -61,7 +64,7 @@ func _process(delta):
 	if note.length() > 0:
 		prod_str = str(prod_str, note, "\n")
 	get_node("production").set_text(str(prod_str))
-	get_node("production").set_pos(get_node("details").get_pos()+Vector2(0,get_node("details").get_size()[1]*0.75))
+	get_node("production").set_pos(get_node("details").get_pos()+Vector2(0,get_node("details").get_size()[1]*0.8))
 	
 	var cons_str = ""
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'consumption'):

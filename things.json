@@ -36,7 +36,7 @@
       "name": "potatoes",
       "type": "resource",
       "count": 0,
-      "capacity": 10,
+      "capacity": 5,
       "rate": 0,
       "is_visible": 0
     },
@@ -44,7 +44,15 @@
       "name": "waste",
       "type": "resource",
       "count": 0,
-      "capacity": 100,
+      "capacity": 5,
+      "rate": 0,
+      "is_visible": 1
+    },
+    {
+      "name": "alien dung",
+      "type": "resource",
+      "count": 0,
+      "capacity": 1,
       "rate": 0,
       "is_visible": 0
     },
@@ -71,7 +79,7 @@
       [
         {
           "item": "waste",
-          "value": 0.01}
+          "value": 0.02}
       ],
       "consumption":
       [
@@ -101,7 +109,7 @@
           "value": 0.5},
         {
           "item": "waste",
-          "value": 0.01}
+          "value": 0.02}
       ],
       "consumption":
       [
@@ -135,7 +143,7 @@
           "value": 0.5},
         {
           "item": "waste",
-          "value": 0.01}
+          "value": 0.02}
       ],
       "consumption":
       [
@@ -169,7 +177,7 @@
           "value": 0.5},
         {
           "item": "waste",
-          "value": 0.01}
+          "value": 0.02}
       ],
       "consumption":
       [
@@ -294,7 +302,7 @@
           "value": 0.1},
         {
           "item": "potatoes",
-          "value": 0.01}
+          "value": 0.05}
       ],
       "notes": "",
       "is_visible": 0
@@ -320,7 +328,34 @@
       "consumption":
       [
       ],
-      "notes": "Increase resource storage by 50%",
+      "notes": "Increase resource\nstorage by 50%",
+      "is_visible": 0
+    },
+    {
+      "name": "warehouse",
+      "type": "building",
+      "count": 0,
+      "rate": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 5000},
+        {
+          "item": "wood",
+          "value": 5000},
+        {
+          "item": "metal",
+          "value": 1000}
+      ],
+      "production":
+      [
+      ],
+      "consumption":
+      [
+      ],
+      "notes": "Increase resource\nstorage by 100%",
       "is_visible": 0
     },
     {
@@ -348,7 +383,76 @@
       "consumption":
       [
       ],
-      "notes": "Increase science capacity by 10%",
+      "notes": "Increase science\ncapacity by 10%",
+      "is_visible": 0
+    },
+    {
+      "name": "factory",
+      "type": "building",
+      "count": 0,
+      "rate": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 5000},
+        {
+          "item": "wood",
+          "value": 10000},
+        {
+          "item": "metal",
+          "value": 5000},
+        {
+          "item": "alien dung",
+          "value": 1000}
+      ],
+      "production":
+      [
+      ],
+      "consumption":
+      [
+      ],
+      "notes": "Increase all building\nproduction by 10%",
+      "is_visible": 0
+    },
+    {
+      "name": "forge",
+      "type": "building",
+      "count": 0,
+      "rate": 0,
+      "working": 1,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 50000},
+        {
+          "item": "wood",
+          "value": 100000},
+        {
+          "item": "metal",
+          "value": 10000},
+        {
+          "item": "alien dung",
+          "value": 1000}
+      ],
+      "production":
+      [
+        {
+          "item": "metal",
+          "value": 1}
+      ],
+      "consumption":
+      [
+        {
+          "item": "water",
+          "value": 1},
+        {
+          "item": "alien dung",
+          "value": 0.1}
+      ],
+      "notes": "",
       "is_visible": 0
     },
     {
@@ -402,6 +506,143 @@
       "is_visible": 0
     },
     {
+      "name": "yokes",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "wood",
+          "value": 1000
+        },
+        {
+          "item": "metal",
+          "value": 200
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "gatherer",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "wheelbarrows",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "wood",
+          "value": 5000
+        },
+        {
+          "item": "metal",
+          "value": 1000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "gatherer",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "self driving wheelbarrows",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "wood",
+          "value": 10000
+        },
+        {
+          "item": "metal",
+          "value": 5000
+        },
+        {
+          "item": "alien dung",
+          "value": 500
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "gatherer",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "drones",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "wood",
+          "value": 100000
+        },
+        {
+          "item": "metal",
+          "value": 75000
+        },
+        {
+          "item": "alien dung",
+          "value": 1000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "gatherer",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "alien bottomless backpacks",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "wood",
+          "value": 1000000
+        },
+        {
+          "item": "metal",
+          "value": 1000000
+        },
+        {
+          "item": "alien dung",
+          "value": 2000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "gatherer",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
       "name": "steel axes",
       "type": "upgrade",
       "used": 0,
@@ -417,6 +658,205 @@
       [
         {
           "item": "woodcutter",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "titanium axes",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 5000
+        },
+        {
+          "item": "metal",
+          "value": 1000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "woodcutter",
+          "value": 3
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "magnesium alloy axes",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 50000
+        },
+        {
+          "item": "metal",
+          "value": 5000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "woodcutter",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "alien alloy axes",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 200000
+        },
+        {
+          "item": "metal",
+          "value": 50000
+        },
+        {
+          "item": "alien dung",
+          "value": 1000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "woodcutter",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "diamond axes",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 250000
+        },
+        {
+          "item": "metal",
+          "value": 100000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "woodcutter",
+          "value": 2
+        },
+        {
+          "item": "alien dung",
+          "value": 2000
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "steel drill bits",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 1000
+        },
+        {
+          "item": "wood",
+          "value": 2000
+        },
+        {
+          "item": "metal",
+          "value": 500
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "mining_drill",
+          "value": 5
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "titanium drill bits",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 10000
+        },
+        {
+          "item": "wood",
+          "value": 20000
+        },
+        {
+          "item": "metal",
+          "value": 5000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "mining_drill",
+          "value": 2
+        }
+      ],
+      "is_visible": 0
+    },
+    {
+      "name": "explosive mining",
+      "type": "upgrade",
+      "used": 0,
+      "count": 0,
+      "cost":
+      [
+        {
+          "item": "rocks",
+          "value": 100000
+        },
+        {
+          "item": "wood",
+          "value": 100000
+        },
+        {
+          "item": "metal",
+          "value": 75000
+        },
+        {
+          "item": "alien dung",
+          "value": 1000
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "mining_drill",
           "value": 2
         }
       ],
@@ -439,6 +879,7 @@
       "effect":
       [
       ],
+      "notes": "Allows mining drill",
       "is_visible": 0
     },
     {
@@ -456,6 +897,83 @@
       "effect":
       [
       ],
+      "notes": "Allows barn",
+      "is_visible": 0
+    },
+    {
+      "name": "writing",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
+        {
+          "item": "science",
+          "value": 500
+        }
+      ],
+      "effect":
+      [
+        {
+          "item": "scientist",
+          "value": 1.1
+        }
+      ],
+      "notes": "",
+      "is_visible": 0
+    },
+    {
+      "name": "advanced storage",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
+        {
+          "item": "science",
+          "value": 750
+        }
+      ],
+      "effect":
+      [
+      ],
+      "notes": "Allows warehouse",
+      "is_visible": 0
+    },
+    {
+      "name": "chemistry",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
+        {
+          "item": "science",
+          "value": 2500
+        }
+      ],
+      "effect":
+      [
+      ],
+      "notes": "Gatherers will pick up small\namount of alien dung",
+      "is_visible": 0
+    },
+    {
+      "name": "metal detection",
+      "type": "science",
+      "count": 0,
+      "used": 0,
+      "cost":
+      [
+        {
+          "item": "science",
+          "value": 3000
+        }
+      ],
+      "effect":
+      [
+      ],
+      "notes": "Woodcutters will randomly\nfind metal deposits",
       "is_visible": 0
     },
     {
@@ -467,12 +985,13 @@
       [
         {
           "item": "science",
-          "value": 300
+          "value": 5000
         }
       ],
       "effect":
       [
       ],
+      "notes": "Allows space research",
       "is_visible": 0
     },
     {
@@ -484,12 +1003,25 @@
       [
         {
           "item": "science",
-          "value": 300
+          "value": 25000
+        },
+        {
+          "item": "rocks",
+          "value": 1e6
+        },
+        {
+          "item": "wood",
+          "value": 1e6
+        },
+        {
+          "item": "metal",
+          "value": 1e5
         }
       ],
       "effect":
       [
       ],
+      "notes": "Allows spaceship!",
       "is_visible": 0
     }
   ]

@@ -5,29 +5,25 @@ extends Button
 # var a=2
 # var b="textvar"
 
-var new_popup = PopupMenu.new()
+var new_confirm = ConfirmationDialog.new()
 
 func _ready():
-	add_child(new_popup)
-	new_popup.set_size(get_viewport().get_rect().size/10)
-	new_popup.set_pos(get_viewport().get_rect().size/6)
-	new_popup.add_item('Are you sure? You will lose all your things!',0)
-	new_popup.add_item('You\'ll also be awarded an efficiency bonus on all production of:',1)
-	new_popup.add_item('  15% x number of shelters\n\n',2)
-	new_popup.add_item(str("Your current production multiplier would be: ", 1 + (Globals.get('RESET_BONUS') * get_node("/root/global").getThingCount('shelter'))),3)
-	new_popup.add_separator()
-	new_popup.add_item('Yes',4)
-	new_popup.add_item('No',5)
-	new_popup.set_item_disabled(0,true)
-	new_popup.set_item_disabled(1,true)
-	new_popup.set_item_disabled(2,true)
-	new_popup.set_item_disabled(3,true)
-	pass
+	add_child(new_confirm)
+	new_confirm.set_title("Are you sure?")
+	if get_text() == 'REBOOT SHIP':
+		new_confirm.set_text(str("You will lose all your things!\n\nBUT! You\'ll also be awarded an efficiency bonus on all production!\n\n", "Your current production multiplier would be: ", 1 + Globals.get('RESET_BONUS') * get_node("/root/global").getHoursPlayed(), "\n"))
+	else:
+		new_confirm.set_text(str("This will TOTALLY reset the game.\n\nYou will get ZERO bonuses and any saved progess will be lost!\n"))
+	new_confirm.set_pos(Vector2(100,200))
 
 func _pressed():
-	new_popup.show()
-	new_popup.connect("item_pressed", self, "_my_button_pressed")
+	new_confirm.show()
+	new_confirm.connect("confirmed", self, "_my_button_pressed")
 
-func _my_button_pressed(id):
-	if id == 4:
+func _my_button_pressed():
+	get_node("/root/global").setNewFlag('construction site', false)
+	get_node("/root/global").setNewFlag('basecamp', false)
+	if get_text() == 'REBOOT SHIP':
 		get_node("/root/global").reset()
+	else:
+		get_node("/root/global").hard_reset()

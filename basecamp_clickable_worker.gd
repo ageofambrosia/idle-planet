@@ -6,6 +6,7 @@ func _ready():
 	set_process(true)
 
 func _pressed():
+	get_node("/root/global").addClick()
 	var this_thing_name = str(get_node("details").get_parent().get_name())
 	get_node("/root/global").addInventory(this_thing_name, 1)
 	get_node("/root/global").writeToLog(str('Hired a ', this_thing_name.replace('_', ' '), '!'))

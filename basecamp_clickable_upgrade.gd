@@ -4,10 +4,15 @@ func _ready():
 	set_process(true)
 
 func _pressed():
+	get_node("/root/global").addClick()
 	var expr = RegEx.new()
 	var re = "\\- ([a-z_ ]*) \\-"
 	expr.compile(re)
 	var this_thing_name = expr.get_capture(expr.find(get_node("details").get_text().to_lower())+1)
+	
+	if this_thing_name.to_lower() == 'chemistry':
+		get_node("/root/global").add_production('gatherer', 'alien dung', 0.01)
+		
 	var effects = get_node("/root/global").getThingProperty(this_thing_name, 'effect')
 	for effect in effects:
 		if 'value' in effect.keys():
