@@ -55,10 +55,7 @@
       "dependencies":
       [
         {
-          "item": "library",
-          "value": 1},
-        {
-          "item": "shelter",
+          "item": "woodcutter",
           "value": 2}
       ]
     }
@@ -171,7 +168,10 @@
       [
         {
           "item": "gatherer",
-          "value": 10},
+          "value": 5},
+        {
+          "item": "woodcutter",
+          "value": 5}
       ]
     },
     {
@@ -239,11 +239,14 @@
       "dependencies":
       [
         {
-          "item": "shelter",
-          "value": 2},
-        {
           "item": "woodcutter",
-          "value": 10}
+          "value": 5},
+        {
+          "item": "gatherer",
+          "value": 5},
+        {
+          "item": "mining_drill",
+          "value": 1}
       ]
     },
     {

@@ -32,7 +32,6 @@ func _ready():
 			child.get_node('consumption').add_color_override("font_color", Color(1,0,0))
 		if child.has_node('production'):
 			child.get_node('production').add_color_override("font_color", Color(0,1,0))
-			
 	set_process(true)
 
 func _process(delta):

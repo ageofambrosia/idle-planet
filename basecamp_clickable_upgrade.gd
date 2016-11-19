@@ -24,12 +24,20 @@ func _pressed():
 
 	get_node("/root/global").setThingUnavailable(this_thing_name)
 	get_node("/root/global").setThingUsed(this_thing_name)
-	get_node(".").set_hidden(true)
+	get_parent().get_node("Science").set_hidden(true)
+	get_parent().get_node("Science1").set_hidden(true)
+	get_parent().get_node("Science2").set_hidden(true)
+	get_parent().get_node("Upgrades").set_hidden(true)
+	get_parent().get_node("Upgrades1").set_hidden(true)
+	get_parent().get_node("Upgrades2").set_hidden(true)
 	
 	for item in get_node("/root/global").getThingProperty(this_thing_name, 'cost'):
 		get_node("/root/global").subtractInventory(item["item"], item["value"])
 	
-	get_node("/root/global").writeToLog(str('Upgraded to ', this_thing_name, '!'))
+	if get_node("/root/global").getThingProperty(this_thing_name, 'type') == 'upgrade':
+		get_node("/root/global").writeToLog(str('Upgraded to ', this_thing_name, '!'))
+	else:
+		get_node("/root/global").writeToLog(str('Researched ', this_thing_name, '!'))
 	get_node("/root/global").log_reset()
 	get_parent().get_node("log_line").set_bbcode(str('[center]', get_node("/root/global").getLogLine(), '[/center]'))
 

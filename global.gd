@@ -51,13 +51,13 @@ func _ready():
 	#On load set the current scene to the last scene available
 	currentScene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 	
-	setMetalMax(getThingProperty('metal', 'capacity')/2)
+	setMetalMax(getThingProperty('metal', 'capacity')/100)
 	
 	Globals.set("WORKERS_PER_SHELTER", 2)
-	Globals.set("BARN_CAPACITY_MULTIPLIER", 1.5)
-	Globals.set("WAREHOUSE_CAPACITY_MULTIPLIER", 2)
+	Globals.set("BARN_CAPACITY_MULTIPLIER", 1.1)
+	Globals.set("WAREHOUSE_CAPACITY_MULTIPLIER", 1.5)
 	Globals.set("LIBRARY_CAPACITY_MULTIPLIER", 1.1)
-	Globals.set("FACTORY_PRODUCTION_MULTIPLIER", 1.05)
+	Globals.set("FACTORY_PRODUCTION_MULTIPLIER", 1.1)
 	Globals.set("COST_MULTIPLIER", 1.15)
 	Globals.set("RESET_BONUS", 0.15)
 	Globals.set("METAL_PROB", 0.01)
